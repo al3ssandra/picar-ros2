@@ -4,7 +4,7 @@ import launch_ros
 import os
 
 def generate_launch_description():
-    pkg_share = launch_ros.substitutions.FindPackageShare(package='description_pkg').find('description_pkg')
+    pkg_share = launch_ros.substitutions.FindPackageShare(package='robot_description').find('robot_description')
     default_model_path = os.path.join(pkg_share, 'urdf/robot.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
 

@@ -8,15 +8,14 @@
 
   <xacro:include filename="robot/robot_description.urdf.xacro" />
 
-  <!-- Import carlikebot ros2_control description
-  <xacro:include filename="$(find description)/ros2_control/robot.ros2_control.xacro" /> -->
+  <!-- Import carlikebot ros2_control description -->
+  <xacro:include filename="robot/robot.ros2_control.xacro" />
 
   <xacro:carlikebot />
 
-  <!-- <xacro:carlikebot_ros2_control
+  <xacro:carlikebot_ros2_control
     name="CarlikeBot" 
-    prefix="$(arg prefix)"
     use_mock_hardware="$(arg use_mock_hardware)"
-    mock_sensor_commands="$(arg mock_sensor_commands)" /> -->
+    mock_sensor_commands="$(arg mock_sensor_commands)" />
 
 </robot>
