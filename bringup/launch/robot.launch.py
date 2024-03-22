@@ -24,7 +24,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "runtime_config_package",
-            default_value="robot_bringup",
+            default_value="myrobot_bringup",
             description='Package with the controller\'s configuration in "config" folder. \
         Usually the argument is not set, it enables use of a custom setup.',
         )
@@ -39,7 +39,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value="robot_description",
+            default_value="myrobot_description",
             description="Description package with robot URDF/xacro files. Usually the argument \
         is not set, it enables use of a custom description.",
         )
@@ -132,7 +132,7 @@ def generate_launch_description():
         ]
     )
 
-    the_robot_description = {"the_robot_description": robot_description_content}
+    robot_description = {"robot_description": robot_description_content}
 
     robot_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
@@ -167,7 +167,7 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="both",
-        parameters=[the_robot_description],
+        parameters=[robot_description],
     )
     rviz_node = Node(
         package="rviz2",
