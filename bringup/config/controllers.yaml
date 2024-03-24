@@ -20,7 +20,7 @@ bicycle_steering_controller:
     front_wheels_names: ['virtual_front_wheel_joint']
     open_loop: false
     velocity_rolling_window_size: 10
-    base_frame_id: base_link
+    base_frame_id: base_footprint
     odom_frame_id: odom
     enable_odom_tf: true
     twist_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]

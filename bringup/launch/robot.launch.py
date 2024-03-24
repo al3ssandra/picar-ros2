@@ -203,6 +203,8 @@ def generate_launch_description():
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
             on_exit=[robot_bicycle_controller_spawner],
+            # on_exit=[TimerAction(period=3.0, 
+            #                      actions=[robot_bicycle_controller_spawner],),],
         )
     )
 
