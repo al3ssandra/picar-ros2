@@ -190,6 +190,13 @@ def generate_launch_description():
         arguments=["bicycle_steering_controller", "--controller-manager", "/controller_manager"],
     )
 
+    # add the spawner node for the imu_sensor_broadcaster
+    imu_sensor_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
     # Delay rviz start after `joint_state_broadcaster`
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
@@ -215,6 +222,7 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        imu_sensor_broadcaster_spawner,
     ]
 
     return LaunchDescription(declared_arguments + nodes)

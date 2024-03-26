@@ -4,7 +4,7 @@
 
   <xacro:arg name="use_mock_hardware" default="false" />
   <xacro:arg name="mock_sensor_commands" default="false" />
-  <xacro:arg name="prefix" default="" />
+  <!-- <xacro:arg name="prefix" default="" /> -->
 
   <xacro:include filename="robot/robot_description.urdf.xacro" />
 
