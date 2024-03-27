@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+Copied and modified from ROS1 example -
+https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_description/urdf/rrbot.gazebo
+-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="robot_gazebo">
+
+    <!-- ros_control plugin -->
+    <gazebo>
+      <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <parameters>$(find myrobot_bringup)/config/controllers.yaml</parameters>
+      </plugin>
+    </gazebo>
+
+     <!-- Link1 -->
+    <gazebo reference="base_link"></gazebo>
+
+    <!-- Link2 -->
+    <gazebo reference="backwhl_l_link"></gazebo>
+
+    <!-- Link3 -->
+    <gazebo reference="backwhl_r_link"></gazebo>
+
+        <!-- Link4 -->
+    <gazebo reference="frontwhl_l_link"></gazebo>
+
+        <!-- Link5 -->
+    <gazebo reference="frontwhl_r_link"></gazebo>
+
+  </xacro:macro>
+
+</robot>

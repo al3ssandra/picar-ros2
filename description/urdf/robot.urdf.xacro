@@ -4,6 +4,7 @@
 
   <xacro:arg name="use_mock_hardware" default="false" />
   <xacro:arg name="mock_sensor_commands" default="false" />
+  <xacro:arg name="use_gazebo_classic" default="false" />
   <!-- <xacro:arg name="prefix" default="" /> -->
 
   <xacro:include filename="robot/robot_description.urdf.xacro" />
@@ -16,6 +17,13 @@
   <xacro:carlikebot_ros2_control
     name="CarlikeBot" 
     use_mock_hardware="$(arg use_mock_hardware)"
-    mock_sensor_commands="$(arg mock_sensor_commands)" />
+    mock_sensor_commands="$(arg mock_sensor_commands)" 
+    use_gazebo_classic="$(arg use_gazebo_classic)" />
+
+  <xacro:if value="$(arg use_gazebo_classic)">
+    <!-- Import Gazebo Classic definitions + plugin -->
+    <xacro:include filename="robot/robot.gazebo.xacro" />
+    <xacro:robot_gazebo />
+  </xacro:if>
 
 </robot>
