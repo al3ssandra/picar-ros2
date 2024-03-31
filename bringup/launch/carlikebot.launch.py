@@ -39,12 +39,6 @@ def generate_launch_description():
         ],
         condition=launch.conditions.UnlessCondition(LaunchConfiguration('remap_odometry_tf')),
     )
-    # joint_state_publisher_node = launch_ros.actions.Node(
-    #     package='joint_state_publisher',
-    #     executable='joint_state_publisher',
-    #     name='joint_state_publisher',
-    #     arguments=[default_model_path],
-    # )
     joint_state_broadcaster_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
@@ -76,7 +70,6 @@ def generate_launch_description():
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
-        # joint_state_publisher_node,
         robot_state_publisher_node,
         control_node_remapped,
         control_node,
