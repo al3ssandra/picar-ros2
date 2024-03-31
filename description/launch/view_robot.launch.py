@@ -4,9 +4,9 @@ import launch_ros
 import os
 
 def generate_launch_description():
-    pkg_share = launch_ros.substitutions.FindPackageShare(package='myrobot_description').find('myrobot_description')
-    default_model_path = os.path.join(pkg_share, 'urdf/robot.urdf.xacro')
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config_view.rviz')
+    description_pkg_share = launch_ros.substitutions.FindPackageShare(package='carlikebot_description').find('carlikebot_description')
+    default_model_path = os.path.join(description_pkg_share, 'urdf/carlikebot.urdf.xacro')
+    default_rviz_config_path = os.path.join(description_pkg_share, 'rviz/carlikebot_view.rviz')
 
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',

@@ -7,10 +7,15 @@
   <xacro:arg name="use_gazebo_classic" default="false" />
   <!-- <xacro:arg name="prefix" default="" /> -->
 
-  <xacro:include filename="robot/robot_description.urdf.xacro" />
+  <!-- Import carlikebot description -->
+  <!-- <xacro:include filename="robot/robot_description.urdf.xacro" /> -->
+  <xacro:include filename="carlikebot/carlikebot.description.urdf.xacro" />
+
+   <!-- Import Rviz colors -->
+  <xacro:include filename="carlikebot/carlikebot.materials.xacro" />
 
   <!-- Import carlikebot ros2_control description -->
-  <xacro:include filename="robot/robot.ros2_control.xacro" />
+  <xacro:include filename="carlikebot/carlikebot.ros2_control.xacro" />
 
   <xacro:carlikebot />
 
@@ -22,8 +27,8 @@
 
   <xacro:if value="$(arg use_gazebo_classic)">
     <!-- Import Gazebo Classic definitions + plugin -->
-    <xacro:include filename="robot/robot.gazebo.xacro" />
-    <xacro:robot_gazebo />
+    <xacro:include filename="carlikebot/carlikebot.gazebo.xacro" />
+    <xacro:carlikebot_gazebo />
   </xacro:if>
 
 </robot>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="carlikebot_ros2_control" params="name use_mock_hardware:=^|false mock_sensor_commands:=^|false use_gazebo_classic:=^|false">
+
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${use_gazebo_classic}">
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </xacro:if>
+        <xacro:if value="${use_mock_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="mock_sensor_commands">${mock_sensor_commands}</param>
+        </xacro:if>
+      </hardware>
+      <joint name="virtual_front_wheel_joint">
+        <command_interface name="position">
+          <param name="min">-100</param>
+          <param name="max">100</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+      <joint name="virtual_rear_wheel_joint">
+        <command_interface name="velocity">
+          <param name="min">-10</param>
+          <param name="max">10</param>
+        </command_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </joint>
+      <!-- <sensor name="imu_sensor">
+        <state_interface name="roll" />
+        <state_interface name="pitch" />
+        <state_interface name="yaw" />
+        <state_interface name="orientation.x" />
+        <state_interface name="angular_velocity.x" />
+        <state_interface name="linear_acceleration.x" />
+      </sensor> -->
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>
