@@ -11,6 +11,9 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
         <parameters>$(find carlikebot_bringup)/config/carlikebot_controllers.yaml</parameters>
+        <ros>
+            <remapping>/bicycle_steering_controller/tf_odometry:=tf</remapping>
+        </ros>          
       </plugin>
     </gazebo>
 
