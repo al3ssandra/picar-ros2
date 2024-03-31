@@ -9,14 +9,14 @@ def generate_launch_description():
     default_model_path = os.path.join(description_pkg_share, 'urdf/carlikebot.urdf.xacro')
     default_rviz_config_path = os.path.join(description_pkg_share, 'rviz/carlikebot.rviz')
     bringup_pkg_share = launch_ros.substitutions.FindPackageShare(package='carlikebot_bringup').find('carlikebot_bringup')
-    default_controllers_config_path = os.path.join(bringup_pkg_share, 'config/carlikebot_view.rviz')
+    default_controllers_config_path = os.path.join(bringup_pkg_share, 'config/carlikebot_controllers.yaml')
 
 
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), LaunchConfiguration('use_mock_hardware'), 
-                                                   LaunchConfiguration('mock_sensor_commands')])}]
+        parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), " ", "use_mock_hardware:=", LaunchConfiguration('use_mock_hardware'), 
+                                                   " ", "mock_sensor_commands:=", LaunchConfiguration('mock_sensor_commands')])}]
     )
     control_node_remapped = launch_ros.actions.Node(
         package="controller_manager",
@@ -39,12 +39,12 @@ def generate_launch_description():
         ],
         condition=launch.conditions.UnlessCondition(LaunchConfiguration('remap_odometry_tf')),
     )
-    joint_state_publisher_node = launch_ros.actions.Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher',
-        arguments=[default_model_path],
-    )
+    # joint_state_publisher_node = launch_ros.actions.Node(
+    #     package='joint_state_publisher',
+    #     executable='joint_state_publisher',
+    #     name='joint_state_publisher',
+    #     arguments=[default_model_path],
+    # )
     joint_state_broadcaster_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
@@ -76,7 +76,7 @@ def generate_launch_description():
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
-        joint_state_publisher_node,
+        # joint_state_publisher_node,
         robot_state_publisher_node,
         control_node_remapped,
         control_node,
