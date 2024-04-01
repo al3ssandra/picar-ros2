@@ -39,6 +39,11 @@ def generate_launch_description():
         arguments=["-topic", "robot_description", "-entity", "carlikebot"],
         output="screen",
     )
+    imu_sensor_broadcaster_spawner = launch_ros.actions.Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
     gazebo = launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [PathJoinSubstitution([launch_ros.substitutions.FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]), 
         launch_arguments={"verbose": "false"}.items())
@@ -53,5 +58,6 @@ def generate_launch_description():
         spawn_entity,
         joint_state_broadcaster_spawner,
         robot_bicycle_controller_spawner,
+        imu_sensor_broadcaster_spawner,
         rviz_node
     ])

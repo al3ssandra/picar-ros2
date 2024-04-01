@@ -44,7 +44,11 @@ def generate_launch_description():
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
-
+    imu_sensor_broadcaster_spawner = launch_ros.actions.Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor_broadcaster", "--controller-manager", "/controller_manager"],
+    )
     robot_bicycle_controller_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
@@ -75,5 +79,6 @@ def generate_launch_description():
         control_node,
         joint_state_broadcaster_spawner,
         robot_bicycle_controller_spawner,
+        imu_sensor_broadcaster_spawner,
         rviz_node
     ])
