@@ -22,11 +22,6 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
     <sensor name="imu_sensor" type="imu">
       <always_on>true</always_on>
       <update_rate>100</update_rate>
-      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-          <ros>
-            <remapping>~/out:=imu</remapping>
-          </ros>
-      </plugin>
     </sensor>
   </gazebo>
 
