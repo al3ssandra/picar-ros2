@@ -5,16 +5,18 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
 -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="carlikebot_gazebo">
+  <xacro:macro name="carlikebot_gazebo" params="use_ekf">
 
     <!-- ros_control plugin -->
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
         <parameters>$(find carlikebot_bringup)/config/carlikebot_controllers.yaml</parameters>
         <parameters>$(find carlikebot_bringup)/config/use_sim_time.yaml</parameters>
-        <ros>
-            <remapping>/bicycle_steering_controller/tf_odometry:=tf</remapping>
-        </ros>          
+        <xacro:unless value="${use_ekf}">
+          <ros>
+              <remapping>/bicycle_steering_controller/tf_odometry:=tf</remapping>
+          </ros>
+        </xacro:unless>          
       </plugin>
     </gazebo>
 

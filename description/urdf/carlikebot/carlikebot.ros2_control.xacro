@@ -19,10 +19,10 @@
           <param name="max">100</param>
         </command_interface>
         <state_interface name="position">
-          <param name="initial_value">0.0</param>
+          <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
         <state_interface name="position">
-          <param name="initial_value">0.0</param>
+          <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
       </joint>
       <joint name="virtual_rear_wheel_joint">
@@ -31,10 +31,10 @@
           <param name="max">10</param>
         </command_interface>
         <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
+          <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
         <state_interface name="position">
-          <param name="initial_value">0.0</param>
+          <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
       </joint>
       <sensor name="imu_sensor">

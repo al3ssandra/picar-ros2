@@ -22,6 +22,7 @@
   <exec_depend>joint_state_broadcaster</exec_depend>
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>gazebo_ros_ackermann_drive</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

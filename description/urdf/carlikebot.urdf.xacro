@@ -5,6 +5,7 @@
   <xacro:arg name="use_mock_hardware" default="false" />
   <xacro:arg name="mock_sensor_commands" default="false" />
   <xacro:arg name="use_gazebo_classic" default="false" />
+  <xacro:arg name="use_ekf" default="true" />
   <!-- <xacro:arg name="prefix" default="" /> -->
 
   <!-- Import carlikebot description -->
@@ -28,7 +29,8 @@
   <xacro:if value="$(arg use_gazebo_classic)">
     <!-- Import Gazebo Classic definitions + plugin -->
     <xacro:include filename="carlikebot/carlikebot.gazebo.xacro" />
-    <xacro:carlikebot_gazebo />
+    <xacro:carlikebot_gazebo 
+      use_ekf="$(arg use_ekf)" />
   </xacro:if>
 
 </robot>

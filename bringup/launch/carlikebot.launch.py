@@ -15,7 +15,8 @@ def generate_launch_description():
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), " ", "use_mock_hardware:=", LaunchConfiguration('use_mock_hardware'), 
+        parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), 
+                                                   " ", "use_mock_hardware:=", LaunchConfiguration('use_mock_hardware'), 
                                                    " ", "mock_sensor_commands:=", LaunchConfiguration('mock_sensor_commands')])}]
     )
     control_node_remapped = launch_ros.actions.Node(
@@ -27,7 +28,7 @@ def generate_launch_description():
             ("~/robot_description", "/robot_description"),
             ("/bicycle_steering_controller/tf_odometry", "/tf"),
         ],
-        condition=launch.conditions.IfCondition(LaunchConfiguration('remap_odometry_tf')),
+        condition=launch.conditions.UnlessCondition(LaunchConfiguration('use_ekf')),
     )
     control_node = launch_ros.actions.Node(
         package="controller_manager",
@@ -37,7 +38,7 @@ def generate_launch_description():
         remappings=[
             ("~/robot_description", "/robot_description"),
         ],
-        condition=launch.conditions.UnlessCondition(LaunchConfiguration('remap_odometry_tf')),
+        condition=launch.conditions.IfCondition(LaunchConfiguration('use_ekf')),
     )
     joint_state_broadcaster_spawner = launch_ros.actions.Node(
         package="controller_manager",
@@ -54,6 +55,14 @@ def generate_launch_description():
         executable="spawner",
         arguments=["bicycle_steering_controller", "--controller-manager", "/controller_manager"],
     )
+    robot_localization_node = launch_ros.actions.Node(
+       package='robot_localization',
+       executable='ekf_node',
+       name='ekf_filter_node',
+       output='screen',
+       parameters=[os.path.join(bringup_pkg_share, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}],
+       condition=launch.conditions.IfCondition(LaunchConfiguration('use_ekf')),
+)
     rviz_node = launch_ros.actions.Node(
         package='rviz2',
         executable='rviz2',
@@ -68,8 +77,10 @@ def generate_launch_description():
         launch.actions.DeclareLaunchArgument(name='mock_sensor_commands', default_value='false',
                                             description="Enable fake command interfaces for sensors used for simple simulations. \
                                             Used only if 'use_mock_hardware' parameter is true."),
-        launch.actions.DeclareLaunchArgument(name="remap_odometry_tf", default_value="false",
-                                            description="Remap odometry TF from the steering controller to the TF tree."),
+        launch.actions.DeclareLaunchArgument(name="use_ekf", default_value="true",
+                                            description="Use extended kalman filter for sensor fusion"),
+        launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='false',
+                                            description='Flag to enable use_sim_time'),
         launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
@@ -80,5 +91,6 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         robot_bicycle_controller_spawner,
         imu_sensor_broadcaster_spawner,
+        robot_localization_node,
         rviz_node
     ])
