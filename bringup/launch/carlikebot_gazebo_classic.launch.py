@@ -9,6 +9,7 @@ def generate_launch_description():
     description_pkg_share = launch_ros.substitutions.FindPackageShare(package='carlikebot_description').find('carlikebot_description')
     default_model_path = os.path.join(description_pkg_share, 'urdf/carlikebot.urdf.xacro')
     default_rviz_config_path = os.path.join(description_pkg_share, 'rviz/carlikebot.rviz')
+    default_world_path = os.path.join(description_pkg_share, 'world/my_world.sdf')
     bringup_pkg_share = launch_ros.substitutions.FindPackageShare(package='carlikebot_bringup').find('carlikebot_bringup')
 
     robot_state_publisher_node = launch_ros.actions.Node(
@@ -56,7 +57,7 @@ def generate_launch_description():
     )
     gazebo = launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [PathJoinSubstitution([launch_ros.substitutions.FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]), 
-        launch_arguments={"verbose": "false"}.items())
+        launch_arguments={'world': default_world_path}.items())
 
     return launch.LaunchDescription([
         gazebo,

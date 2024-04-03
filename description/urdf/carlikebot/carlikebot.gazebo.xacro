@@ -27,6 +27,48 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
       </sensor>
     </gazebo>
 
+    <gazebo reference="ultrasonic_link">
+      <sensor name="ultrasonic" type="ray">
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <update_rate>5</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>5</samples>
+              <resolution>1.000000</resolution>
+              <min_angle>-0.12</min_angle>
+              <max_angle>0.12</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>5</samples>
+              <resolution>1.000000</resolution>
+              <min_angle>-0.01</min_angle>
+              <max_angle>0.01</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.02</min>
+            <max>4</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="ultrasonic_sensor" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <remapping>~/out:=scan</remapping>
+          </ros>
+          <output_type>sensor_msgs/Range</output_type>
+          <radiation_type>ultrasound</radiation_type>
+          <frame_name>ultrasonic_link</frame_name>
+        </plugin>
+      </sensor>
+    </gazebo>
+
   </xacro:macro>
 
 </robot>
