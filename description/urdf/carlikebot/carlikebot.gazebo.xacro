@@ -86,7 +86,6 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
           </clip>
         </camera>
         <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-          <baseline>0.2</baseline>
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
           <frame_name>camera_link</frame_name>
