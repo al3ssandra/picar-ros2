@@ -18,6 +18,15 @@
   <!-- Base Link -->
   <link name="base_link" />
 
+  <!--Base footprint link (it's for slam)-->
+  <link name="base_footprint" />
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
   <!-- Chassis -->
 
   <link name="chassis_link">
@@ -81,7 +90,7 @@
     </joint>
 
     <!-- Ultrasonic sensor -->
-    <link name="ultrasonic_link">
+    <!-- <link name="ultrasonic_link">
       <visual>
         <origin xyz="0.001 0.001 0.001" rpy="0 0 0"/>
         <geometry>
@@ -104,10 +113,10 @@
       <parent link="chassis_link"/>
       <child link="ultrasonic_link"/>
       <origin xyz="0.0 0.0 0.12" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <!-- Camera sensor -->
-    <link name="camera_link">
+    <!-- <link name="camera_link">
       <visual>
         <origin xyz="0.002 0.002 0.002" rpy="0 0 0"/>
         <geometry>
@@ -130,6 +139,28 @@
       <parent link="chassis_link"/>
       <child link="camera_link"/>
       <origin xyz="0.0 0.0 0.2" rpy="0 0 0"/>
+    </joint> -->
+
+    <!-- Lidar sensor -->
+    <link name="lidar_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.125"/>
+        <inertia ixx="0.001"  ixy="0"  ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+      </inertial>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0508" length="0.055"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+      <parent link="chassis_link"/>
+      <child link="lidar_link"/>
+      <origin xyz="0 0 0.12" rpy="0 0 0"/>
     </joint>
 
     <!-- rear wheels -->
