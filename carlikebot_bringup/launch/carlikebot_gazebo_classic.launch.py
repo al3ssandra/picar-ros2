@@ -10,6 +10,7 @@ def generate_launch_description():
     default_model_path = os.path.join(description_pkg_share, 'urdf/carlikebot.urdf.xacro')
     default_rviz_config_path = os.path.join(description_pkg_share, 'rviz/carlikebot.rviz')
     default_world_path = os.path.join(description_pkg_share, 'world/my_world.sdf')
+    # default_world_path = os.path.join(description_pkg_share, 'world/turtlebot3_world.model')
     bringup_pkg_share = launch_ros.substitutions.FindPackageShare(package='carlikebot_bringup').find('carlikebot_bringup')
 
     robot_state_publisher_node = launch_ros.actions.Node(
@@ -34,6 +35,7 @@ def generate_launch_description():
         executable='rviz2',
         name='rviz2',
         output='screen',
+        parameters=[{'use_sim_time': LaunchConfiguration('use_sim_time')}],
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
     spawn_entity = launch_ros.actions.Node(
@@ -57,7 +59,8 @@ def generate_launch_description():
     )
     gazebo = launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [PathJoinSubstitution([launch_ros.substitutions.FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]), 
-        launch_arguments={'world': default_world_path}.items())
+        launch_arguments={'world': default_world_path}.items()
+    )
 
     return launch.LaunchDescription([
         gazebo,
@@ -65,7 +68,7 @@ def generate_launch_description():
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
-        launch.actions.DeclareLaunchArgument(name="use_ekf", default_value="true",
+        launch.actions.DeclareLaunchArgument(name="use_ekf", default_value="false",
                                             description="Use extended kalman filter to fuse sensors"),
         launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='true',
                                             description='Flag to enable use_sim_time'),

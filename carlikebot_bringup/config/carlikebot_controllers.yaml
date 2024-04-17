@@ -14,9 +14,9 @@ controller_manager:
 
 bicycle_steering_controller:
   ros__parameters:
-    wheelbase: 0.145
-    front_wheel_radius: 0.0325
-    rear_wheel_radius: 0.0325
+    wheelbase: 0.325
+    front_wheel_radius: 0.05
+    rear_wheel_radius: 0.05
     front_steering: true
     reference_timeout: 2.0
     rear_wheels_names: ['virtual_rear_wheel_joint']
@@ -29,7 +29,8 @@ bicycle_steering_controller:
     twist_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]
     pose_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]
     position_feedback: false
-    use_stamped_vel: true
+    # use_stamped_vel: true
+    use_stamped_vel: false
     state_publish_rate: 100.0
 
 imu_sensor_broadcaster:

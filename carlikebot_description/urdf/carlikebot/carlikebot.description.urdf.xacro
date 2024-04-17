@@ -30,12 +30,12 @@
   <!-- Chassis -->
 
   <link name="chassis_link">
-    <collision>
+    <!-- <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <box size="${base_length} ${base_width} ${base_height}"/>
       </geometry>
-    </collision>
+    </collision> -->
 
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -168,12 +168,19 @@
     <!-- virtual rear wheel -->
 
     <link name="virtual_rear_wheel">
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+      
       <visual>
         <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
         <geometry>
           <cylinder length="0.01" radius="${wheel_radius}"/>
         </geometry>
-        <material name="invisible"/>
+        <material name="black"/>
       </visual>
 
       <inertial>
@@ -192,7 +199,7 @@
       <origin xyz="-${wheelbase/2} 0 -${base_height/2}" rpy="0 0 ${PI/2}"/>
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
-      <dynamics damping="0.2"/>
+      <!-- <dynamics damping="0.2"/> -->
     </joint>
 
     <!-- rear right wheel -->
@@ -230,7 +237,7 @@
       <origin xyz="-${wheelbase/2} ${base_width/2} -${base_height/2}" rpy="0 0 ${PI/2}"/>
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
-      <dynamics damping="0.2"/>
+      <!-- <dynamics damping="0.2"/> -->
       <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/>
     </joint>
 
@@ -268,7 +275,7 @@
       <origin xyz="-${wheelbase/2} -${base_width/2} -${base_height/2}" rpy="0 0 ${PI/2}"/>
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
-      <dynamics damping="0.2"/>
+      <!-- <dynamics damping="0.2"/> -->
       <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/>
     </joint>
 
@@ -277,12 +284,19 @@
     <!-- virtual front wheel -->
 
     <link name="virtual_front_wheel">
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+
       <visual>
         <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
         <geometry>
           <cylinder length="0.01" radius="${wheel_radius}"/>
         </geometry>
-        <material name="invisible"/>
+        <material name="black"/>
       </visual>
 
       <inertial>
@@ -296,12 +310,14 @@
     </link>
 
     <joint name="virtual_front_wheel_joint" type="revolute">
+    <!-- <joint name="virtual_front_wheel_joint" type="continuous"> -->
       <parent link="chassis_link"/>
       <child link="virtual_front_wheel"/>
       <origin xyz="${wheelbase/2} 0 -${base_height/2}" rpy="0 0 ${PI/2}"/>
       <axis xyz="0 0 1"/>
+      <!-- <limit effort="100.0" velocity="100.0"/> -->
       <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
-      <dynamics damping="0.2"/>
+      <!-- <dynamics damping="0.2"/> -->
     </joint>
 
     <!-- front right wheel -->
@@ -335,12 +351,14 @@
     </link>
 
     <joint name="front_right_wheel_joint" type="revolute">
+    <!-- <joint name="front_right_wheel_joint" type="continuous"> -->
       <parent link="chassis_link" />
       <child link="front_right_wheel" />
       <origin xyz="${wheelbase/2} ${base_width/2} -${base_height/2}" rpy="0 0 ${PI/2}"/>
       <axis xyz="0 0 1"/>
+      <!-- <limit effort="100.0" velocity="100.0"/> -->
       <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
-      <dynamics damping="0.2"/>
+      <!-- <dynamics damping="0.2"/> -->
       <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
     </joint>
 
@@ -375,12 +393,14 @@
     </link>
 
     <joint name="front_left_wheel_joint" type="revolute">
+    <!-- <joint name="front_left_wheel_joint" type="continuous"> -->
       <parent link="chassis_link" />
       <child link="front_left_wheel" />
       <origin xyz="${wheelbase/2} -${base_width/2} -${base_height/2}" rpy="0 0 ${PI/2}"/>
       <axis xyz="0 0 1"/>
+      <!-- <limit effort="100.0" velocity="100.0"/> -->
       <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
-      <dynamics damping="0.2"/>
+      <!-- <dynamics damping="0.2"/> -->
       <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
     </joint>
 
