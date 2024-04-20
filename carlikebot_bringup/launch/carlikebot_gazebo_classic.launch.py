@@ -68,7 +68,7 @@ def generate_launch_description():
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
-        launch.actions.DeclareLaunchArgument(name="use_ekf", default_value="false",
+        launch.actions.DeclareLaunchArgument(name="use_ekf", default_value="true",
                                             description="Use extended kalman filter to fuse sensors"),
         launch.actions.DeclareLaunchArgument(name='use_sim_time', default_value='true',
                                             description='Flag to enable use_sim_time'),
