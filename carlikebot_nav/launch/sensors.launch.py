@@ -10,7 +10,7 @@ def generate_launch_description():
     slam_config_path = os.path.join(nav_pkg_share, 'config/mapper_params_online_async.yaml')
     nav2_config_path = os.path.join(nav_pkg_share, 'config/nav2_params.yaml')
     twist_mux_params = os.path.join(nav_pkg_share,'config/twist_mux.yaml')
-    # map_yaml_path = os.path.join(nav_pkg_share, 'maps/turtlebot3_world.yaml')
+    map_yaml_path = os.path.join(nav_pkg_share, 'maps/turtlebot3_world.yaml')
     # use_sim_time = True
 
     twist_mux = launch_ros.actions.Node(
@@ -23,13 +23,18 @@ def generate_launch_description():
 
     return launch.LaunchDescription([
         launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('carlikebot_bringup'), 'launch'), '/carlikebot_gazebo_classic.launch.py'])),
-        launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('slam_toolbox'), 'launch'), '/online_async_launch.py']),
-                                                launch_arguments={'slam_params_file': slam_config_path, 
+        # launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('slam_toolbox'), 'launch'), '/online_async_launch.py']),
+        #                                         launch_arguments={'slam_params_file': slam_config_path, 
+        #                                                           'use_sim_time': 'True'
+        #                                                           # 'use_lifecycle_manager': 'True'
+        #                                                           }.items()),
+        launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('nav2_bringup'), 'launch'), '/localization_launch.py']),
+                                                launch_arguments={'params_file': nav2_config_path,
+                                                                  'map': map_yaml_path, 
                                                                   'use_sim_time': 'True'
-                                                                  # 'use_lifecycle_manager': 'True'
                                                                   }.items()),
         launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('nav2_bringup'), 'launch'), '/navigation_launch.py']),
-                                                # launch_arguments={'params_file': nav2_config_path, 'map': map_yaml_path}.items())
-                                                launch_arguments={'params_file': nav2_config_path, 'use_sim_time': 'True'}.items()),
+                                                launch_arguments={'params_file': nav2_config_path, 
+                                                                  'use_sim_time': 'True'}.items()),
         twist_mux
     ])
