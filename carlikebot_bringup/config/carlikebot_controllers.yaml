@@ -14,9 +14,9 @@ controller_manager:
 
 bicycle_steering_controller:
   ros__parameters:
-    wheelbase: 0.325
-    front_wheel_radius: 0.05
-    rear_wheel_radius: 0.05
+    wheelbase: 0.145
+    front_wheel_radius: 0.0325
+    rear_wheel_radius: 0.0325
     front_steering: true
     reference_timeout: 2.0
     rear_wheels_names: ['virtual_rear_wheel_joint']

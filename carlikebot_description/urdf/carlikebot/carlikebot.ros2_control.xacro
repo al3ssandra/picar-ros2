@@ -15,13 +15,13 @@
       </hardware>
       <joint name="virtual_front_wheel_joint">
         <command_interface name="position">
-          <param name="min">-100</param>
-          <param name="max">100</param>
+          <param name="min">-10</param>
+          <param name="max">10</param>
         </command_interface>
         <state_interface name="position">
           <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
-        <state_interface name="position">
+        <state_interface name="velocity">
           <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
       </joint>
