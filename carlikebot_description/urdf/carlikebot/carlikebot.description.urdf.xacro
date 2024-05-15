@@ -288,12 +288,12 @@
     <!-- virtual front wheel -->
 
     <link name="virtual_front_wheel">
-      <collision>
+      <!-- <collision>
         <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
         <geometry>
           <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
         </geometry>
-      </collision>
+      </collision> -->
 
       <visual>
         <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
@@ -352,9 +352,11 @@
     </link>
 
     <joint name="front_right_wheel_joint" type="continuous">
-      <parent link="chassis_link" />
+      <!-- <parent link="chassis_link" /> -->
+      <parent link="virtual_front_wheel" />
       <child link="front_right_wheel" />
-      <origin xyz="${wheel_front_xoff} -${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
+      <!-- <origin xyz="${wheel_front_xoff} -${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/> -->
+      <origin xyz="-${base_width/2+wheel_ygap+wheel_len/2} 0 0" rpy="0 0 0"/>
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
       <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
@@ -391,9 +393,11 @@
     </link>
 
     <joint name="front_left_wheel_joint" type="continuous">
-      <parent link="chassis_link" />
+      <!-- <parent link="chassis_link" /> -->
+      <parent link="virtual_front_wheel" />
       <child link="front_left_wheel" />
-      <origin xyz="${wheel_front_xoff} ${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
+      <!-- <origin xyz="${wheel_front_xoff} ${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/> -->
+      <origin xyz="${base_width/2+wheel_ygap+wheel_len/2} 0 0" rpy="0 0 0"/>
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
       <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
