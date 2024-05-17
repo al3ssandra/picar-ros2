@@ -13,8 +13,8 @@
           <param name="mock_sensor_commands">${mock_sensor_commands}</param>
         </xacro:if>
       </hardware>
-      <joint name="virtual_front_wheel_joint">
-        <command_interface name="position">
+      <joint name="front_left_wheel_joint">
+        <command_interface name="velocity">
           <param name="min">-10</param>
           <param name="max">10</param>
         </command_interface>
@@ -25,7 +25,7 @@
           <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
       </joint>
-      <joint name="virtual_rear_wheel_joint">
+      <joint name="front_right_wheel_joint">
         <command_interface name="velocity">
           <param name="min">-10</param>
           <param name="max">10</param>

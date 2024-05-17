@@ -17,8 +17,8 @@ def generate_launch_description():
             package="twist_mux",
             executable="twist_mux",
             parameters=[twist_mux_params, {'use_sim_time': True}],
-            remappings=[('/cmd_vel_out','/bicycle_steering_controller/reference_unstamped')]
-            # remappings=[('/cmd_vel_out','/bicycle_steering_controller/reference')]
+            remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel_unstamped')]
+            # remappings=[('/cmd_vel_out','/diffbot_base_controller/cmd_vel')]
     )
 
     return launch.LaunchDescription([

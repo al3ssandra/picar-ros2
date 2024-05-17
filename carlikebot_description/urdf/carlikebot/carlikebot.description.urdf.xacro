@@ -167,11 +167,131 @@
       <origin xyz="0 0 0.12" rpy="0 0 0"/>
     </joint>
 
+    <!-- front wheels -->
+
+    <!-- virtual front wheel -->
+
+    <!-- <link name="virtual_front_wheel"> -->
+      <!-- <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+        </geometry>
+      </collision> -->
+
+      <!-- <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <mass value="${wheel_mass}"/>
+        <inertia
+          ixx="0.0000075875" ixy="0.0" ixz="0.0"
+          iyy="0.0000075875" iyz="0.0"
+          izz="0.000012675"/>
+      </inertial>
+    </link>
+
+    <joint name="virtual_front_wheel_joint" type="revolute">
+      <parent link="chassis_link"/>
+      <child link="virtual_front_wheel"/>
+      <origin xyz="${wheel_front_xoff} 0 -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
+    </joint> -->
+
+    <!-- front right wheel -->
+
+
+    <link name="front_right_wheel">
+
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <mass value="${wheel_mass}"/>
+        <inertia
+          ixx="0.0000075875" ixy="0.0" ixz="0.0"
+          iyy="0.0000075875" iyz="0.0"
+          izz="0.000012675"/>
+      </inertial>
+    </link>
+
+    <joint name="front_right_wheel_joint" type="continuous">
+      <parent link="chassis_link" />
+      <!-- <parent link="virtual_front_wheel" /> -->
+      <child link="front_right_wheel" />
+      <origin xyz="${wheel_front_xoff} -${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
+      <!-- <origin xyz="-${base_width/2+wheel_ygap+wheel_len/2} 0 0" rpy="0 0 0"/> -->
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <!-- <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+    <!-- front left wheel -->
+
+
+    <link name="front_left_wheel">
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <mass value="${wheel_mass}"/>
+        <inertia
+          ixx="0.0000075875" ixy="0.0" ixz="0.0"
+          iyy="0.0000075875" iyz="0.0"
+          izz="0.000012675"/>
+      </inertial>
+
+    </link>
+
+    <joint name="front_left_wheel_joint" type="continuous">
+      <parent link="chassis_link" />
+      <!-- <parent link="virtual_front_wheel" /> -->
+      <child link="front_left_wheel" />
+      <origin xyz="${wheel_front_xoff} ${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
+      <!-- <origin xyz="${base_width/2+wheel_ygap+wheel_len/2} 0 0" rpy="0 0 0"/> -->
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <!-- <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
     <!-- rear wheels -->
 
     <!-- virtual rear wheel -->
 
-    <link name="virtual_rear_wheel">
+    <!-- <link name="virtual_rear_wheel">
       <collision>
         <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
         <geometry>
@@ -203,8 +323,8 @@
       <origin xyz="-${wheel_back_xoff} 0 -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
-      <!-- <dynamics damping="0.2"/> -->
-    </joint>
+    </joint> -->
+    <!-- <dynamics damping="0.2"/> -->
 
     <!-- rear right wheel -->
 
@@ -242,7 +362,7 @@
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
       <!-- <dynamics damping="0.2"/> -->
-      <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/>
+      <mimic joint="front_right_wheel_joint" multiplier="1.0" offset="0.0"/>
     </joint>
 
     <!-- rear left wheel -->
@@ -280,127 +400,7 @@
       <axis xyz="1 0 0"/>
       <limit effort="100.0" velocity="100.0"/>
       <!-- <dynamics damping="0.2"/> -->
-      <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/>
-    </joint>
-
-    <!-- front wheels -->
-
-    <!-- virtual front wheel -->
-
-    <link name="virtual_front_wheel">
-      <!-- <collision>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <geometry>
-          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
-        </geometry>
-      </collision> -->
-
-      <visual>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <geometry>
-          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
-        </geometry>
-        <material name="invisible"/>
-      </visual>
-
-      <inertial>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <mass value="${wheel_mass}"/>
-        <inertia
-          ixx="0.0000075875" ixy="0.0" ixz="0.0"
-          iyy="0.0000075875" iyz="0.0"
-          izz="0.000012675"/>
-      </inertial>
-    </link>
-
-    <joint name="virtual_front_wheel_joint" type="revolute">
-      <parent link="chassis_link"/>
-      <child link="virtual_front_wheel"/>
-      <origin xyz="${wheel_front_xoff} 0 -${wheel_zoff}" rpy="0 0 ${PI/2}"/>
-      <axis xyz="0 0 1"/>
-      <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
-    </joint>
-
-    <!-- front right wheel -->
-
-
-    <link name="front_right_wheel">
-
-      <collision>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <geometry>
-          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
-        </geometry>
-      </collision>
-
-      <visual>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <geometry>
-          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
-        </geometry>
-        <material name="black"/>
-      </visual>
-
-      <inertial>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <mass value="${wheel_mass}"/>
-        <inertia
-          ixx="0.0000075875" ixy="0.0" ixz="0.0"
-          iyy="0.0000075875" iyz="0.0"
-          izz="0.000012675"/>
-      </inertial>
-    </link>
-
-    <joint name="front_right_wheel_joint" type="continuous">
-      <!-- <parent link="chassis_link" /> -->
-      <parent link="virtual_front_wheel" />
-      <child link="front_right_wheel" />
-      <!-- <origin xyz="${wheel_front_xoff} -${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/> -->
-      <origin xyz="-${base_width/2+wheel_ygap+wheel_len/2} 0 0" rpy="0 0 0"/>
-      <axis xyz="1 0 0"/>
-      <limit effort="100.0" velocity="100.0"/>
-      <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
-    </joint>
-
-    <!-- front left steering -->
-
-
-    <link name="front_left_wheel">
-      <collision>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <geometry>
-          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
-        </geometry>
-      </collision>
-
-      <visual>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <geometry>
-          <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
-        </geometry>
-        <material name="black"/>
-      </visual>
-
-      <inertial>
-        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
-        <mass value="${wheel_mass}"/>
-        <inertia
-          ixx="0.0000075875" ixy="0.0" ixz="0.0"
-          iyy="0.0000075875" iyz="0.0"
-          izz="0.000012675"/>
-      </inertial>
-
-    </link>
-
-    <joint name="front_left_wheel_joint" type="continuous">
-      <!-- <parent link="chassis_link" /> -->
-      <parent link="virtual_front_wheel" />
-      <child link="front_left_wheel" />
-      <!-- <origin xyz="${wheel_front_xoff} ${base_width/2+wheel_ygap+wheel_len/2} -${wheel_zoff}" rpy="0 0 ${PI/2}"/> -->
-      <origin xyz="${base_width/2+wheel_ygap+wheel_len/2} 0 0" rpy="0 0 0"/>
-      <axis xyz="1 0 0"/>
-      <limit effort="100.0" velocity="100.0"/>
-      <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
+      <mimic joint="front_left_wheel_joint" multiplier="1.0" offset="0.0"/>
     </joint>
 
   </xacro:macro>

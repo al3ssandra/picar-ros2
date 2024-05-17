@@ -17,7 +17,10 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), " ", "use_gazebo_classic:=true", " ",
-                                                   "use_ekf:=", LaunchConfiguration('use_ekf')])}]
+                                                   "use_ekf:=", LaunchConfiguration('use_ekf')])}],
+        remappings=[
+            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
+        ],
     )
     joint_state_broadcaster_spawner = launch_ros.actions.Node(
         package="controller_manager",
@@ -25,10 +28,10 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    robot_bicycle_controller_spawner = launch_ros.actions.Node(
+    robot_diff_drive_controller_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["bicycle_steering_controller", "--controller-manager", "/controller_manager"],
+        arguments=["diffbot_base_controller", "--controller-manager", "/controller_manager"],
     )
     rviz_node = launch_ros.actions.Node(
         package='rviz2',
@@ -76,7 +79,7 @@ def generate_launch_description():
         robot_state_publisher_node,
         spawn_entity,
         joint_state_broadcaster_spawner,
-        robot_bicycle_controller_spawner,
+        robot_diff_drive_controller_spawner,
         imu_sensor_broadcaster_spawner,
         robot_localization_node,
         rviz_node
