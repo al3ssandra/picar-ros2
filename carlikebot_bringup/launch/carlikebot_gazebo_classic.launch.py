@@ -19,7 +19,7 @@ def generate_launch_description():
         parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), " ", "use_gazebo_classic:=true", " ",
                                                    "use_ekf:=", LaunchConfiguration('use_ekf')])}],
         remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
+            ("/diffbot_base_controller/cmd_vel_unstamped", "/cmd_vel"),
         ],
     )
     joint_state_broadcaster_spawner = launch_ros.actions.Node(

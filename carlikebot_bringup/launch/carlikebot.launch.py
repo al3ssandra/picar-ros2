@@ -19,7 +19,7 @@ def generate_launch_description():
                                                    " ", "use_mock_hardware:=", LaunchConfiguration('use_mock_hardware'), 
                                                    " ", "mock_sensor_commands:=", LaunchConfiguration('mock_sensor_commands')])}],
         remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
+            ("/diffbot_base_controller/cmd_vel_unstamped", "/cmd_vel"),
         ],
     )
     control_node_remapped = launch_ros.actions.Node(
@@ -29,7 +29,7 @@ def generate_launch_description():
         output="both",
         remappings=[
             ("~/robot_description", "/robot_description"),
-            # ("/diff_drive_controller/tf_odometry", "/tf"),
+            # ("/diffbot_base_controller/tf_odometry", "/tf"),
         ],
         condition=launch.conditions.UnlessCondition(LaunchConfiguration('use_ekf')),
     )
