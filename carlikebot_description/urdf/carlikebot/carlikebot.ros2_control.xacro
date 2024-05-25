@@ -37,6 +37,26 @@
           <!-- <param name="initial_value">0.0</param> -->
         </state_interface>
       </joint>
+      <joint name="rear_left_wheel_joint">
+        <param name="mimic">front_left_wheel_joint</param>
+        <param name="multiplier">1</param>
+        <state_interface name="velocity">
+          <!-- <param name="initial_value">0.0</param> -->
+        </state_interface>
+        <state_interface name="position">
+          <!-- <param name="initial_value">0.0</param> -->
+        </state_interface>
+      </joint>
+      <joint name="rear_right_wheel_joint">
+        <param name="mimic">front_right_wheel_joint</param>
+        <param name="multiplier">1</param>
+        <state_interface name="velocity">
+          <!-- <param name="initial_value">0.0</param> -->
+        </state_interface>
+        <state_interface name="position">
+          <!-- <param name="initial_value">0.0</param> -->
+        </state_interface>
+      </joint>
       <sensor name="imu_sensor">
         <state_interface name="orientation.x"/>
         <state_interface name="orientation.y"/>

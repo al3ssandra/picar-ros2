@@ -209,6 +209,12 @@
 
 
     <link name="front_right_wheel">
+      <!-- <contact>
+        <lateral_friction value="1.0"/>
+        <rolling_friction value="0.0"/>
+        <stiffness value="30000"/>
+        <damping value="1000"/>
+      </contact> -->
 
       <collision>
         <!-- <geometry>
@@ -261,6 +267,13 @@
 
 
     <link name="front_left_wheel">
+      <!-- <contact>
+        <lateral_friction value="1.0"/>
+        <rolling_friction value="0.0"/>
+        <stiffness value="30000"/>
+        <damping value="1000"/>
+      </contact> -->
+
       <collision>
         <!-- <geometry>
             <sphere radius="${wheel_radius}"/>
@@ -351,6 +364,13 @@
     <!-- rear right wheel -->
 
     <link name="rear_right_wheel">
+      <!-- <contact>
+        <lateral_friction value="1.0"/>
+        <rolling_friction value="0.0"/>
+        <stiffness value="30000"/>
+        <damping value="1000"/>
+      </contact> -->
+
       <collision>
         <!-- <geometry>
             <sphere radius="${wheel_radius}"/>
@@ -400,6 +420,13 @@
 
     <!-- rear left wheel -->
     <link name="rear_left_wheel">
+      <!-- <contact>
+        <lateral_friction value="1.0"/>
+        <rolling_friction value="0.0"/>
+        <stiffness value="30000"/>
+        <damping value="1000"/>
+      </contact> -->
+
       <collision>
         <!-- <geometry>
             <sphere radius="${wheel_radius}"/>

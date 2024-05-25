@@ -65,7 +65,7 @@ def generate_launch_description():
        output='screen',
        parameters=[os.path.join(bringup_pkg_share, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}],
        condition=launch.conditions.IfCondition(LaunchConfiguration('use_ekf')),
-)
+    )
     rviz_node = launch_ros.actions.Node(
         package='rviz2',
         executable='rviz2',
@@ -73,6 +73,12 @@ def generate_launch_description():
         output='screen',
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
+    # joint_state_publisher_gui_node = launch_ros.actions.Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     name='joint_state_publisher_gui',
+    #     # condition=launch.conditions.IfCondition(LaunchConfiguration('gui'))
+    # )
 
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument(name='use_mock_hardware', default_value='true',
@@ -95,5 +101,6 @@ def generate_launch_description():
         robot_diff_drive_controller_spawner,
         imu_sensor_broadcaster_spawner,
         robot_localization_node,
+        # joint_state_publisher_gui_node,
         rviz_node
     ])
