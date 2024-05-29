@@ -42,7 +42,7 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
 
     <gazebo reference="front_left_wheel">
       <mu1 value="1.0"/>
-      <mu2 value="0.1"/>
+      <mu2 value="1.0"/>
       <kp value="10000000.0"/>
       <kd value="1.0"/>
       <fdir1 value="1 0 0"/>
@@ -52,7 +52,7 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
 
     <gazebo reference="front_right_wheel">
       <mu1 value="1.0"/>
-      <mu2 value="0.1"/>
+      <mu2 value="1.0"/>
       <kp value="10000000.0"/>
       <kd value="1.0"/>
       <fdir1 value="1 0 0"/>

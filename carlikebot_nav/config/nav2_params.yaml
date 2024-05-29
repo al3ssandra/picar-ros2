@@ -1,5 +1,6 @@
 amcl:
   ros__parameters:
+    use_sim_time: True
     alpha1: 0.2
     alpha2: 0.2
     alpha3: 0.2
@@ -40,6 +41,7 @@ amcl:
 
 bt_navigator:
   ros__parameters:
+    use_sim_time: True
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
@@ -159,8 +161,8 @@ controller_server:
       TrajectoryVisualizer:
         trajectory_step: 5
         time_step: 3
-      AckermannConstraints:
-        min_turning_r: 0.2
+      # AckermannConstraints:
+      #   min_turning_r: 0.2
       # critics: ["ConstraintCritic", "CostCritic", "GoalCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic", "PathAngleCritic", "PreferForwardCritic"]
       critics: ["ConstraintCritic", "GoalCritic", "GoalAngleCritic", "PreferForwardCritic", "ObstaclesCritic"]
       # critics: ["ConstraintCritic", "GoalCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic", "PathAngleCritic", "PreferForwardCritic"]
@@ -283,16 +285,18 @@ local_costmap:
       width: 3
       height: 3
       resolution: 0.05
-      footprint: "[ [0.21, 0.195], [0.21, -0.195], [-0.21, -0.195], [-0.21, 0.195] ]"
+      footprint: "[ [0.13, 0.1], [0.13, -0.1], [-0.13, -0.1], [-0.13, 0.1] ]"
       robot_radius: 0.22
-      plugins: ["inflation_layer", "obstacle_layer"]
-      inflation_layer:
-        plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0
-        inflation_radius: 0.55
-      obstacle_layer:
-        plugin: "nav2_costmap_2d::ObstacleLayer"
+      plugins: ["voxel_layer", "inflation_layer"]
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
+        publish_voxel_map: True
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16
+        max_obstacle_height: 2.0
+        mark_threshold: 0
         observation_sources: scan
         scan:
           topic: /scan
@@ -300,13 +304,10 @@ local_costmap:
           clearing: True
           marking: True
           data_type: "LaserScan"
-          raytrace_max_range: 3.0
-          raytrace_min_range: 0.0
-          obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
-      static_layer:
-        plugin: "nav2_costmap_2d::StaticLayer"
-        map_subscribe_transient_local: True
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.55
       always_send_full_costmap: True
   local_costmap_client:
     ros__parameters:
@@ -323,7 +324,8 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_link
       use_sim_time: True
-      robot_radius: 0.22
+      # robot_radius: 0.1
+      footprint: "[ [0.13, 0.1], [0.13, -0.1], [-0.13, -0.1], [-0.13, 0.1] ]"
       resolution: 0.05
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
@@ -365,6 +367,7 @@ global_costmap:
 
 map_saver:
   ros__parameters:
+    use_sim_time: True
     save_map_timeout: 5.0
     free_thresh_default: 0.25
     occupied_thresh_default: 0.65
@@ -394,7 +397,7 @@ planner_server:
       max_iterations: 1000000             # maximum total iterations to search for before failing (in case unreachable), set to -1 to disable
       max_on_approach_iterations: 1000    # Maximum number of iterations after within tolerances to continue to try to find exact solution
       max_planning_time: 5.0              # max time in s for planner to plan, smooth
-      motion_model_for_search: "DUBIN"    # Hybrid-A* Dubin, Redds-Shepp
+      motion_model_for_search: "REEDS_SHEPP"    # Hybrid-A* Dubin, Redds-Shepp
       angle_quantization_bins: 72         # Number of angle bins for search
       analytic_expansion_ratio: 3.5       # The ratio to attempt analytic expansions during search for final approach.
       analytic_expansion_max_length: 3.0  # For Hybrid/Lattice nodes: The maximum length of the analytic expansion to be considered valid to prevent unsafe shortcutting
@@ -424,6 +427,7 @@ planner_server:
 
 smoother_server:
   ros__parameters:
+    use_sim_time: True
     smoother_plugins: ["simple_smoother"]
     simple_smoother:
       plugin: "nav2_smoother::SimpleSmoother"
@@ -433,6 +437,7 @@ smoother_server:
 
 behavior_server:
   ros__parameters:
+    use_sim_time: True
     local_costmap_topic: local_costmap/costmap_raw
     global_costmap_topic: global_costmap/costmap_raw
     local_footprint_topic: local_costmap/published_footprint
@@ -460,6 +465,7 @@ behavior_server:
 
 waypoint_follower:
   ros__parameters:
+    use_sim_time: True
     loop_rate: 20
     stop_on_failure: false
     action_server_result_timeout: 900.0
@@ -471,6 +477,7 @@ waypoint_follower:
 
 velocity_smoother:
   ros__parameters:
+    use_sim_time: True
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
