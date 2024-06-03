@@ -12,6 +12,7 @@ def generate_launch_description():
     # default_world_path = os.path.join(description_pkg_share, 'world/my_world.sdf')
     default_world_path = os.path.join(description_pkg_share, 'world/turtlebot3_world.model')
     bringup_pkg_share = launch_ros.substitutions.FindPackageShare(package='carlikebot_bringup').find('carlikebot_bringup')
+    gazebo_params = os.path.join(bringup_pkg_share, 'config/gazebo_params.yaml')
 
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',
@@ -63,7 +64,7 @@ def generate_launch_description():
     )
     gazebo = launch.actions.IncludeLaunchDescription(PythonLaunchDescriptionSource(
         [PathJoinSubstitution([launch_ros.substitutions.FindPackageShare("gazebo_ros"), "launch", "gazebo.launch.py"])]), 
-        launch_arguments={'world': default_world_path}.items()
+        launch_arguments={'world': default_world_path, 'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params}.items()
     )
 
     return launch.LaunchDescription([
