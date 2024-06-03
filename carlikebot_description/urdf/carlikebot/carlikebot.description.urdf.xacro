@@ -9,7 +9,6 @@
     <xacro:property name="base_width" value="0.09" />
     <xacro:property name="base_length" value="0.195" />
     <xacro:property name="base_height" value="0.002" />
-    <xacro:property name="wheelbase" value="0.145" />
     <xacro:property name="wheel_mass" value="0.024" /> <!-- arbitrary value for wheel mass, I think in Kg -->
     <xacro:property name="wheel_len" value="0.025" />
     <xacro:property name="wheel_radius" value="0.0325" />
@@ -228,7 +227,7 @@
           <friction>
             <ode>
               <mu>1.0</mu>
-              <mu2>0.1</mu2>
+              <mu2>1.0</mu2>
             </ode>
           </friction>
         </surface>
@@ -286,7 +285,7 @@
           <friction>
             <ode>
               <mu>1.0</mu>
-              <mu2>0.1</mu2>
+              <mu2>1.0</mu2>
             </ode>
           </friction>
         </surface>
