@@ -16,7 +16,7 @@ After building the container check the image ID by running
 docker images
 ```
 
-To allow the container to display the rviz and Gazebo windows on your local computer, copy the image ID where it says IMAGE_ID in the following command
+To allow the container to display the rviz and Gazebo windows on your local computer, run the following command replacing IMAGE_ID with your image ID
 ```bash
 xhost +local:`docker inspect --format='{{ .Config.Hostname }}' IMAGE_ID`
 ```
@@ -25,8 +25,6 @@ Finally, you can run the container with the following command, replacing PATH_TO
 ```bash
 docker run -d --rm --network host -e DISPLAY=$DISPLAY -v PATH_TO_WS:/home/picar_ws IMAGE_ID
 ```
-
-If you're using Visual Studio Code, you can press F1 from the root of the workspace and that will open the command palette, from wich you can select  Dev Containers: Reopen in Container, and that will automatically build and run the container.
 
 Check the container ID with the following command:
 ```bash
@@ -38,7 +36,7 @@ You can acces the terminal inside the container with the following command, repl
 docker exec -it CONTAINER_ID bash
 ```
 
-If your using Visual Studio Code and you have installed the Docker extension, you can right click on the container and select Attatch Visual Studio Code
+If your using Visual Studio Code and you have installed the Docker extension, you can instead right click on the container and select Attatch Visual Studio Code
 
 ## Usage
 
@@ -62,3 +60,7 @@ Finally run the simulation in gazebo and visualization in rviz run:
 ```bash
 ros2 launch carlikebot_nav sensors.launch.py
 ```
+
+## Visual Studio Code
+
+If you have installed the Docker and Dev Containers extensions in Visual Studio Code, you can press F1 from the root of the workspace and that will open the command palette, from wich you can select  ```Dev Containers: Reopen in Container```, and that will automatically build and run the container.
