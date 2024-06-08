@@ -17,7 +17,10 @@ def generate_launch_description():
         executable='robot_state_publisher',
         parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('model'), 
                                                    " ", "use_mock_hardware:=", LaunchConfiguration('use_mock_hardware'), 
-                                                   " ", "mock_sensor_commands:=", LaunchConfiguration('mock_sensor_commands')])}]
+                                                   " ", "mock_sensor_commands:=", LaunchConfiguration('mock_sensor_commands')])}],
+        remappings=[
+            ("/diffbot_base_controller/cmd_vel_unstamped", "/cmd_vel"),
+        ],
     )
     control_node_remapped = launch_ros.actions.Node(
         package="controller_manager",
@@ -26,7 +29,7 @@ def generate_launch_description():
         output="both",
         remappings=[
             ("~/robot_description", "/robot_description"),
-            ("/bicycle_steering_controller/tf_odometry", "/tf"),
+            # ("/diffbot_base_controller/tf_odometry", "/tf"),
         ],
         condition=launch.conditions.UnlessCondition(LaunchConfiguration('use_ekf')),
     )
@@ -50,10 +53,10 @@ def generate_launch_description():
         executable="spawner",
         arguments=["imu_sensor_broadcaster", "--controller-manager", "/controller_manager"],
     )
-    robot_bicycle_controller_spawner = launch_ros.actions.Node(
+    robot_diff_drive_controller_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["bicycle_steering_controller", "--controller-manager", "/controller_manager"],
+        arguments=["diffbot_base_controller", "--controller-manager", "/controller_manager"],
     )
     robot_localization_node = launch_ros.actions.Node(
        package='robot_localization',
@@ -62,7 +65,7 @@ def generate_launch_description():
        output='screen',
        parameters=[os.path.join(bringup_pkg_share, 'config/ekf.yaml'), {'use_sim_time': LaunchConfiguration('use_sim_time')}],
        condition=launch.conditions.IfCondition(LaunchConfiguration('use_ekf')),
-)
+    )
     rviz_node = launch_ros.actions.Node(
         package='rviz2',
         executable='rviz2',
@@ -70,6 +73,12 @@ def generate_launch_description():
         output='screen',
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
+    # joint_state_publisher_gui_node = launch_ros.actions.Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     name='joint_state_publisher_gui',
+    #     # condition=launch.conditions.IfCondition(LaunchConfiguration('gui'))
+    # )
 
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument(name='use_mock_hardware', default_value='true',
@@ -89,8 +98,9 @@ def generate_launch_description():
         control_node_remapped,
         control_node,
         joint_state_broadcaster_spawner,
-        robot_bicycle_controller_spawner,
+        robot_diff_drive_controller_spawner,
         imu_sensor_broadcaster_spawner,
         robot_localization_node,
+        # joint_state_publisher_gui_node,
         rviz_node
     ])

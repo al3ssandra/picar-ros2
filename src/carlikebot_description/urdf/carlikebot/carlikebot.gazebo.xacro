@@ -12,20 +12,60 @@ https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/rrbot_desc
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
         <parameters>$(find carlikebot_bringup)/config/carlikebot_controllers.yaml</parameters>
         <parameters>$(find carlikebot_bringup)/config/use_sim_time.yaml</parameters>
-        <xacro:unless value="${use_ekf}">
+        <!-- <xacro:unless value="${use_ekf}">
           <ros>
-              <remapping>/bicycle_steering_controller/tf_odometry:=tf</remapping>
+              <remapping>/diffbot_base_controller/tf_odometry:=tf</remapping>
           </ros>
-        </xacro:unless>          
+        </xacro:unless>           -->
       </plugin>
     </gazebo>
 
-    <gazebo reference="imu_link">
+    <gazebo reference="rear_left_wheel">
+      <mu1 value="1.0"/>
+      <mu2 value="0.1"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <gazebo reference="rear_right_wheel">
+      <mu1 value="1.0"/>
+      <mu2 value="0.1"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <gazebo reference="front_left_wheel">
+      <mu1 value="1.0"/>
+      <mu2 value="1.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <gazebo reference="front_right_wheel">
+      <mu1 value="1.0"/>
+      <mu2 value="1.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <!-- <gazebo reference="imu_link">
       <sensor name="imu_sensor" type="imu">
         <always_on>true</always_on>
         <update_rate>100</update_rate>
       </sensor>
-    </gazebo>
+    </gazebo> -->
 
     <!-- <gazebo reference="ultrasonic_link">
       <sensor name="ultrasonic" type="ray">
