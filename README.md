@@ -76,6 +76,4 @@ After Rviz and Gazebo launch, click in ```2D Pose Estimate``` in Rviz and then c
 
 If you have installed the Docker and Dev Containers extensions in Visual Studio Code, you can press F1 from the root of the workspace and that will open the command palette, from wich you can select  ```Dev Containers: Reopen in Container```, and that will automatically build and run the container.
 
-<video width="600" controls>
-  <source src="./output.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/6b2bc683-32cf-4195-8f77-9ce40e5be338
