@@ -40,7 +40,13 @@ If your using Visual Studio Code and you have installed the Docker extension, yo
 
 ## Usage
 
-Inside the container run the following command from the root of the workspace (in this case it's in /home/picar_ws) to install the ros2 dependencies (ros2 packages needed)
+Inside the container run:
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+Then run the following command from the root of the workspace (in this case it's in /home/picar_ws) to install the ros2 dependencies (ros2 packages needed)
 ```bash
 rosdep update 
 rosdep install --from-paths src --ignore-src -y
@@ -56,10 +62,15 @@ Or if you don't want to have to source it everytime you open a new terminal, the
 echo 'source /opt/ros/iron/setup.bash' >> ~/.bashrc
 ```
 
-Finally run the simulation in gazebo and visualization in rviz run:
+Finally to run the simulation in gazebo and visualization in rviz run:
 ```bash
+colcon build
+source install/setup.bash
+source /usr/share/gazebo/setup.sh
 ros2 launch carlikebot_nav sensors.launch.py
 ```
+
+After Rviz and Gazebo launch, click in ```2D Pose Estimate``` in Rviz and then click on the map such that the arrow corresponds to the orientation of the car in Gazebo. After that you can click on ```2D Goal Pose``` to move the car where you want it to and you should see the car moving in Rviz and Gazebo.
 
 ## Visual Studio Code
 
